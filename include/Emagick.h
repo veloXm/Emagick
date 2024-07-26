@@ -3,44 +3,137 @@
 
 #include <Magick++.h>
 
+// -----------------------------------------------------------------------------
+
 // Reads the image from imagePath parameter
-// Returns 0 on success and 1 on failure
-int readImage(std::string& imagePath, Magick::Image& image);
+// Returns true on success and false on failure
+bool readImage(std::string& imagePath, Magick::Image& image);
 
 // Creates/Writes the image
-// Returns 0 on success and 1 on failure
-int writeImage(Magick::Image& image, std::string basename);
+// Returns true on success and false on failure
+bool writeImage(Magick::Image& image, std::string basename);
 
-// Crops the image according to given geometry
-// Returns 0 on success and 1 on failure
-int cropImage(Magick::Image& image, int x, int y, int offsetx, int offsety);
+// -----------------------------------------------------------------------------
+// ----------------------------------- 1 arg -----------------------------------
 
-// Grayscale the image
-// Returns 0 on success and 1 on failure
-int grayscaleImage(Magick::Image& image);
+// Despeckle the image
+//
+// -- Reduce speckle noise
+//
+// Returns true on success and false on failure
+bool despeckleImage(Magick::Image& image);
 
-// Changes the gamma of image according to factor
-// Returns 0 on success and 1 on failure
-int changeGamma(Magick::Image& image, float factor);
+// Equalize the image
+//
+// -- Historgram equalization
+//
+// Returns true on success and false on failure
+bool equalizeImage(Magick::Image& image);
 
-// Rotate the image
-// Returns 0 on success and 1 on failure
-int rotateImage(Magick::Image& image, float degrees);
+// Erase the image
+//
+// -- Set all image pixels to the current background color
+//
+// Returns true on success and false on failure
+bool eraseImage(Magick::Image& image);
+
+// Flip the image
+//
+// -- Reflect each scanline in the vertical direction
+//
+// Returns true on success and false on failure
+bool flipImage(Magick::Image& image);
+
+// Flop the image
+//
+// -- Reflect each scanline in the horizontal direction
+//
+// Returns true on success and false on failure
+bool flopImage(Magick::Image& image);
+
+// Change the image color to grayscale
+//
+// Returns true on success and false on failure
+bool grayscaleImage(Magick::Image& image);
+
+// Magnify the image
+//
+// -- Magnify image by integral size
+//
+// Returns true on success and false on failure
+bool magnifyImage(Magick::Image& image);
+
+// Minify the image
+//
+// -- Magnify image by integral size
+//
+// Returns true on success and false on failure
+bool minifyImage(Magick::Image& image);
 
 // Negate colors in the image
-// Returns 0 on success and 1 on failure
-int negateColors(Magick::Image& image);
+//
+// Returns true on success and false on failure
+bool negateColors(Magick::Image& image);
 
 // Normalize the image
-// Returns 0 on success and 1 on failure
-int normalizeImage(Magick::Image& image);
+//
+// -- Increases contrast by normalizing the pixel values
+// to span the full range of color values
+//
+// Returns true on success and false on failure
+bool normalizeImage(Magick::Image& image);
 
-// Oil Paint the image based on radius
-// Returns 0 on success and 1 on failure
-int oilPaintImage(Magick::Image& image, int radius);
+// Trims the image edges
+//
+// -- Trim edges that are the background color from the image
+//
+// Returns true on success and false on failure
+bool trimImage(Magick::Image& image);
+
+// ---------------------------------- 2 args -----------------------------------
 
 // Change the brightness of image according to factor(in %)
-// Returns 0 on success and 1 on failure
-int changeBrightness(Magick::Image& image, float factor);
+//
+// -- Uses modulate under-the-hood -> modulate(brightness, saturation, hue), where 100% is default
+//
+// Returns true on success and false on failure
+bool changeBrightness(Magick::Image& image, float factor);
+
+// Gamma correct image
+//
+// -- Changes the gamma of image according to factor
+//
+// Returns true on success and false on failure
+bool changeGamma(Magick::Image& image, float factor);
+
+// Oil paint the image based on radius
+//
+// -- Make image look like oil painting
+//
+// Returns true on success and false on failure
+bool oilPaintImage(Magick::Image& image, int radius);
+
+// Rotate the image
+//
+// -- Rotate image counter-clockwise by specified number of degrees
+//
+// Returns true on success and false on failure
+bool rotateImage(Magick::Image& image, float degrees);
+
+
+// ---------------------------------- 3 args -----------------------------------
+
+
+// ---------------------------------- 3+ args ----------------------------------
+
+// Crops the image according to given geometry
+//
+// -- Crop subregion of original image
+//
+// Returns true on success and false on failure
+bool cropImage(Magick::Image& image, int x, int y, int offsetx, int offsety);
+
+
+// -----------------------------------------------------------------------------
 
 #endif // !EMAGICK_H
